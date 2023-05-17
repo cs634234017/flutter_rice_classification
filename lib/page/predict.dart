@@ -138,7 +138,7 @@ class _PredictState extends State<Predict> {
                                       child: Column(
                                         children: [
                                           Text(
-                                            "คำทำนาย : ${_output[0]['label']}\nค่าความถูกต้อง : ${(_output[0]['confidence'] * 100.0).toString().substring(0, 2)} %",
+                                            "คำทำนาย : ${_output[0]['label']} \nค่าความถูกต้อง : ${(_output[0]['confidence'] * 100.0).toString().substring(0, 2)} %",
                                             style: const TextStyle(
                                               color: Colors.black,
                                               fontSize: 18,
