@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_rice_classification/home.dart';
 import 'package:flutter_rice_classification/page/manual.dart';
 import 'package:flutter_rice_classification/page/predict.dart';
 
