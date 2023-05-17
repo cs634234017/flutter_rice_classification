@@ -16,9 +16,6 @@ class _PredictState extends State<Predict> {
   late List _output;
   final picker = ImagePicker();
 
-  // String _confident = '';
-  // String _name = '';
-
   @override
   void initState() {
     //initS is the first function that is executed by default when this class is called
@@ -141,21 +138,13 @@ class _PredictState extends State<Predict> {
                                       child: Column(
                                         children: [
                                           Text(
-                                            'คำทำนาย: ${_output[0]['label']}',
+                                            "คำทำนาย : ${_output[0]['label']}\nค่าความถูกต้อง : ${(_output[0]['confidence'] * 100.0).toString().substring(0, 2)} %",
                                             style: const TextStyle(
                                               color: Colors.black,
                                               fontSize: 18,
                                               fontWeight: FontWeight.w400,
                                             ),
                                           ),
-                                          Text(
-                                            'ค่าความถูกกต้อง: ${_output[0]['confident'] * 100.toString().substring(0, 2) + '%'}',
-                                            style: const TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          )
                                         ],
                                       ),
                                     )
