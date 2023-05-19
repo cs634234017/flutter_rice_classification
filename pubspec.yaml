@@ -68,6 +68,7 @@ flutter:
     - assets/
     - assets/icons/rice_logo.png
     - assets/icons/pngegg.png
+    - assets/icons/camera.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
