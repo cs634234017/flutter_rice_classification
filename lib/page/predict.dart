@@ -15,6 +15,11 @@ class _PredictState extends State<Predict> {
   late File _image;
   late List _output;
   final picker = ImagePicker();
+  String _confidence = '';
+  var predictText = '';
+  var confidence = '';
+  bool showText = true;
+  bool showImage = true;
 
   @override
   void initState() {
@@ -45,6 +50,25 @@ class _PredictState extends State<Predict> {
     setState(() {
       _output = output!;
       _loading = false;
+
+      if (_output[0]['label'] == 'Healthy') {
+        setState(() {
+          predictText = 'ไม่เป็นโรค';
+        });
+      } else if (_output[0]['label'] == 'Unhealthy') {
+        setState(() {
+          predictText = 'เป็นโรค';
+        });
+      } else {
+        setState(() {
+          predictText = 'คำทำนายที่ไม่รู้จัก';
+        });
+      }
+
+      // ignore: unnecessary_null_comparison
+      _confidence = _output != null
+          ? "${(_output[0]['confidence'] * 100.0).toString().substring(0, 2)}%"
+          : "";
     });
   }
 
@@ -63,6 +87,8 @@ class _PredictState extends State<Predict> {
 
     setState(() {
       _image = File(image.path);
+      showText = !showText;
+      showImage = !showImage;
     });
     classifyImage(_image);
   }
@@ -74,6 +100,8 @@ class _PredictState extends State<Predict> {
 
     setState(() {
       _image = File(image.path);
+      showText = !showText;
+      showImage = !showImage;
     });
     classifyImage(_image);
   }
@@ -111,8 +139,27 @@ class _PredictState extends State<Predict> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  Visibility(
+                      visible: showText,
+                      //alignment: Alignment.center,
+                      child: const Text(
+                        'เลือกรูปภาพของคุณ \n',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )),
+                  Visibility(
+                    visible: showImage,
+                    child: Image.asset(
+                      'assets/icons/camera.png',
+                      scale: 0.5,
+                    ),
+                  ),
                   Center(
                     //predict
+
                     child: _loading == true
                         ? null //show nothing if no picture selected
                         : Column(
@@ -134,19 +181,10 @@ class _PredictState extends State<Predict> {
                               ),
                               // ignore: unnecessary_null_comparison
                               _loading == false
-                                  ? Container(
-                                      child: Column(
-                                        children: [
-                                          Text(
-                                            "คำทำนาย : ${_output[0]['label']} \nค่าความถูกต้อง : ${(_output[0]['confidence'] * 100.0).toString().substring(0, 2)} %",
-                                            style: const TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                                  ? Column(
+                                      children: [
+                                        Text("$predictText \n$_confidence ")
+                                      ],
                                     )
                                   : Container(),
                               const Divider(
@@ -155,7 +193,9 @@ class _PredictState extends State<Predict> {
                               ),
                             ],
                           ),
-                  ), //predict
+                  ),
+
+                  //predict
                   Column(
                     //image picker
                     children: [
