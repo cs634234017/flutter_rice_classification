@@ -20,6 +20,7 @@ class _PredictState extends State<Predict> {
   var confidence = '';
   bool showText = true;
   bool showImage = true;
+  bool hideText = false;
 
   @override
   void initState() {
@@ -53,11 +54,11 @@ class _PredictState extends State<Predict> {
 
       if (_output[0]['label'] == 'Healthy') {
         setState(() {
-          predictText = 'ไม่เป็นโรค';
+          predictText = 'โอกาศไม่เป็นโรค';
         });
       } else if (_output[0]['label'] == 'Unhealthy') {
         setState(() {
-          predictText = 'เป็นโรค';
+          predictText = 'โอกาศเป็นโรค';
         });
       } else {
         setState(() {
@@ -67,7 +68,7 @@ class _PredictState extends State<Predict> {
 
       // ignore: unnecessary_null_comparison
       _confidence = _output != null
-          ? "${(_output[0]['confidence'] * 100.0).toString().substring(0, 2)}%"
+          ? (_output[0]['confidence'] * 100.0).toString().substring(0, 2)
           : "";
     });
   }
@@ -87,8 +88,9 @@ class _PredictState extends State<Predict> {
 
     setState(() {
       _image = File(image.path);
-      showText = !showText;
-      showImage = !showImage;
+      showText = false;
+      showImage = false;
+      hideText = true;
     });
     classifyImage(_image);
   }
@@ -100,8 +102,9 @@ class _PredictState extends State<Predict> {
 
     setState(() {
       _image = File(image.path);
-      showText = !showText;
-      showImage = !showImage;
+      showText = false;
+      showImage = false;
+      hideText = true;
     });
     classifyImage(_image);
   }
@@ -109,7 +112,7 @@ class _PredictState extends State<Predict> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.green,
+      backgroundColor: Colors.green[400],
       body: Column(
         children: [
           const Padding(padding: EdgeInsets.all(10)),
@@ -141,7 +144,6 @@ class _PredictState extends State<Predict> {
                 children: [
                   Visibility(
                       visible: showText,
-                      //alignment: Alignment.center,
                       child: const Text(
                         'เลือกรูปภาพของคุณ \n',
                         style: TextStyle(
@@ -151,15 +153,29 @@ class _PredictState extends State<Predict> {
                         ),
                       )),
                   Visibility(
+                      visible: hideText,
+                      child: const Text(
+                        'คำทำนาย \n',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )),
+                  Visibility(
                     visible: showImage,
-                    child: Image.asset(
-                      'assets/icons/camera.png',
-                      scale: 0.5,
+                    child: Column(
+                      children: [
+                        Image.asset(
+                          'assets/icons/camera.png',
+                          height: 100,
+                        ),
+                        const SizedBox(height: 40),
+                      ],
                     ),
                   ),
                   Center(
                     //predict
-
                     child: _loading == true
                         ? null //show nothing if no picture selected
                         : Column(
@@ -175,22 +191,34 @@ class _PredictState extends State<Predict> {
                                   ),
                                 ),
                               ),
-                              const Divider(
-                                height: 15,
-                                thickness: 1,
-                              ),
+
                               // ignore: unnecessary_null_comparison
                               _loading == false
                                   ? Column(
                                       children: [
-                                        Text("$predictText \n$_confidence ")
+                                        Container(
+                                          margin: const EdgeInsets.all(30),
+                                          padding: EdgeInsets.all(10),
+                                          decoration: BoxDecoration(
+                                            color:
+                                                _output[0]['label'] == 'Healthy'
+                                                    ? Colors.green[700]
+                                                    : Colors.red,
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                          child: Text(
+                                            "$predictText $_confidence เปอร์เซ็น",
+                                            style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                        ),
                                       ],
                                     )
                                   : Container(),
-                              const Divider(
-                                height: 15,
-                                thickness: 1,
-                              ),
                             ],
                           ),
                   ),
@@ -207,7 +235,7 @@ class _PredictState extends State<Predict> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 15),
                           decoration: BoxDecoration(
-                            color: Colors.green[300],
+                            color: Colors.green[400],
                             borderRadius: BorderRadius.circular(15),
                           ),
                           child: const Text(
@@ -216,7 +244,7 @@ class _PredictState extends State<Predict> {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 25),
+                      const SizedBox(height: 10),
                       GestureDetector(
                         onTap: pickGalleryImage,
                         child: Container(
@@ -225,7 +253,7 @@ class _PredictState extends State<Predict> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 24, vertical: 17),
                           decoration: BoxDecoration(
-                            color: Colors.green[300],
+                            color: Colors.green[400],
                             borderRadius: BorderRadius.circular(15),
                           ),
                           child: const Text(

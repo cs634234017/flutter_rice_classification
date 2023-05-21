@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rice_classification/page/manual.dart';
-import 'package:flutter_rice_classification/page/predict.dart';
+import 'package:flutter_rice_classification/page/prediction.dart';
 
 class MyBottomBar extends StatefulWidget {
   const MyBottomBar({super.key});

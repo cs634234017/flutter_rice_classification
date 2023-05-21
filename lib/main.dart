@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rice_classification/bar/tabbar.dart';
-import 'package:flutter_rice_classification/page/predict.dart';
+import 'package:flutter_rice_classification/page/prediction.dart';
+import 'package:flutter_rice_classification/page/splash_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -11,9 +12,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Animal Classification',
-      home: MyBottomBar(),
+      home: SplashScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class Manual extends StatefulWidget {
   const Manual({super.key});
@@ -13,7 +11,7 @@ class _ManualState extends State<Manual> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.green[600],
+        backgroundColor: Colors.green[400],
         body: Column(children: [
           const Padding(padding: EdgeInsets.all(10)),
           Row(
