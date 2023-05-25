@@ -112,7 +112,7 @@ class _PredictState extends State<Predict> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.green[400],
+      backgroundColor: Colors.green,
       body: Column(
         children: [
           const Padding(padding: EdgeInsets.all(10)),
@@ -198,7 +198,7 @@ class _PredictState extends State<Predict> {
                                       children: [
                                         Container(
                                           margin: const EdgeInsets.all(30),
-                                          padding: EdgeInsets.all(10),
+                                          padding: const EdgeInsets.all(20),
                                           decoration: BoxDecoration(
                                             color:
                                                 _output[0]['label'] == 'Healthy'
@@ -208,7 +208,7 @@ class _PredictState extends State<Predict> {
                                                 BorderRadius.circular(10),
                                           ),
                                           child: Text(
-                                            "$predictText $_confidence เปอร์เซ็น",
+                                            "$predictText $_confidence %",
                                             style: const TextStyle(
                                               color: Colors.white,
                                               fontSize: 18,
@@ -230,17 +230,28 @@ class _PredictState extends State<Predict> {
                       GestureDetector(
                         onTap: pickImage,
                         child: Container(
-                          width: MediaQuery.of(context).size.width - 200,
+                          width: MediaQuery.of(context).size.width - 160,
                           alignment: Alignment.center,
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 15),
+                          padding: const EdgeInsets.all(15), //symmetric(
+                          //     horizontal: 25, vertical: 15),
                           decoration: BoxDecoration(
                             color: Colors.green[400],
                             borderRadius: BorderRadius.circular(15),
                           ),
-                          child: const Text(
-                            'Take A Photo',
-                            style: TextStyle(color: Colors.white, fontSize: 16),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Icon(
+                                Icons.camera_alt_rounded,
+                                color: Colors.white,
+                              ),
+                              SizedBox(width: 10),
+                              Text(
+                                'ถ่ายรูปภาพ',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 18),
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -248,17 +259,28 @@ class _PredictState extends State<Predict> {
                       GestureDetector(
                         onTap: pickGalleryImage,
                         child: Container(
-                          width: MediaQuery.of(context).size.width - 200,
+                          width: MediaQuery.of(context).size.width - 160,
                           alignment: Alignment.center,
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 24, vertical: 17),
+                          padding: const EdgeInsets.all(15), //symmetric(
+                          //     horizontal: 25, vertical: 15),
                           decoration: BoxDecoration(
                             color: Colors.green[400],
                             borderRadius: BorderRadius.circular(15),
                           ),
-                          child: const Text(
-                            'Pick From Gallery',
-                            style: TextStyle(color: Colors.white, fontSize: 16),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Icon(
+                                Icons.photo_library,
+                                color: Colors.white,
+                              ),
+                              SizedBox(width: 10),
+                              Text(
+                                'เลือกจากแกลเลอรี',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 18),
+                              ),
+                            ],
                           ),
                         ),
                       ),
